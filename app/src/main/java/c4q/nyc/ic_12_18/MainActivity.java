@@ -3,8 +3,10 @@ package c4q.nyc.ic_12_18;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 import c4q.nyc.ic_12_18.backend.UserService;
+import c4q.nyc.ic_12_18.model.FullName;
 import c4q.nyc.ic_12_18.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     // fields:
     private static final String TAG = "JSON: ";
     private UserService userService;
+    private ImageView userImageView;
+    private FullName fullName;
 
 
     @Override
@@ -46,12 +50,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                Log.d(TAG, "onResponse: " + response.body().getUser());
+                String userCell = response.body().getCell();
+                fullName = response.body().getFullName();
+
+
+                Log.d(TAG, "onResponse: " + userCell + " , " + fullName );
+
+                // to take the link from the callback + show it on the screen
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
 
+
+                // if we fail: log the error if there is one:
+                Log.d(TAG, "onFailure: " + t.toString());
             }
         });
 

@@ -17,4 +17,6 @@ public interface UserService {
      */
     @GET("api/?nat=us&inc=name,location,cell,email,dob,picture&results=20")
     Call<User> getUser();
+
+
 }
